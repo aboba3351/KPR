@@ -31,8 +31,20 @@ class igrok(GameSprite):
             self.rect.y += 5
         if kn[K_UP]:
             self.rect.y -= 5
-
-boba = igrok('free-png.ru-61.png', 50,50)
+boba = igrok('free-png.ru-61.png', 50,50)                      
+                      
+class Wall(sprite.Sprite):
+    def __init__(self, x,y,shir,vis):
+        super().__init__()
+        self.image = Surface((shir,vis))
+        self.image.fill((255,0,255))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    def ris(self):
+        okno.blit(self.image, (self.rect.x,self.rect.y))
+Wallgroup = [
+]
 
 while game:
     for i in event.get():
@@ -41,6 +53,7 @@ while game:
     if i.type == KEYDOWN:
             if i.key == K_ESCAPE:
                 game = False
+    okno.blit(fon, (0,0))
                       
     display.update()
     clock.tick(60)   
