@@ -5,7 +5,7 @@ clock= time.Clock()
 
 okno = display.set_mode(700,600)
 
-fon = transform.scale(image.load('background.jpg'), (750, 750))
+fon = transform.scale(image.load('background.jpg'), ((750, 750), FULLSCREEN)
 
 class GameSprite(sprite.Sprite):
     def __init__(self, pikt, x,y):
@@ -38,7 +38,10 @@ while game:
     for i in event.get():
         if i .type == QUIT:
             game  = False
-
+    if i.type == KEYDOWN:
+            if i.key == K_ESCAPE:
+                game = False
+                      
     display.update()
     clock.tick(60)   
 
