@@ -3,18 +3,35 @@ from pygame import*
 game=True
 clock= time.Clock()
 
-okno = display.set_mode(700,600)
+okno = display.set_mode((700,600), FULLSCREEN)
 
-fon = transform.scale(image.load('background.jpg'), ((750, 750), FULLSCREEN)
+fon = transform.scale(image.load('градус 228.png'), (750, 750))
 
 class GameSprite(sprite.Sprite):
-    def __init__(self, pikt, x,y):
+    def __init__(self, pikt, x,y,w,h):
         super().__init__()
-        self.image = transform.scale(image.load(pikt), (50, 50))
+        self.image = transform.scale(image.load(pikt), (w,h))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.direct="verh"
+    def rot_center(self,image, rect, angle):
+        rot_image = transform.rotate(image, angle)
+        rot_rect = rot_image.get_rect(center=self.rect.center)
+        self.image = rot_image
+        return rot_image,rot_rect
     def ris(self):
+        if self.direct=="verh":
+            self.image = transform.scale(image.load('утёнок джек 228.png'),(100,100)) 
+        elif self.direct == "vniz":
+            self.image = transform.scale(image.load('Down.png'),(100,100))
+        elif self.direct == "pravo":
+            self.image = transform.scale(image.load('right.png'),(100,100))
+        elif self.direct == "levo":
+                self.image = transform.scale(image.load('left.png'),(100,100))
+
+
+            
         okno.blit(self.image, (self.rect.x,self.rect.y))
 
 class igrok(GameSprite):
@@ -24,15 +41,23 @@ class igrok(GameSprite):
         self.lasty = self.rect.y
         kn = key.get_pressed()
         if kn[K_LEFT]:
+            #igrok.image = transform.scale(image.load('left.png'),(100,100))    
             self.rect.x -= 5
+            self.direct="levo"
         if kn[K_RIGHT]:
+            #igrok.image =   transform.scale(image.load('right.png'),(100,100))  
             self.rect.x += 5
+            self.direct="pravo"
         if kn[K_DOWN]:
+            #igrok.image = transform.scale(image.load('Down.png'),(100,100))
+            self.direct="vniz"
             self.rect.y += 5
-        if kn[K_UP]:
+        if kn[K_UP]:  
+            #igrok.image = transform.scale(image.load('утёнок джек 228.png'),(100,100)) 
             self.rect.y -= 5
-boba = igrok('free-png.ru-61.png', 50,50)                      
-                      
+            self.direct = "verh"
+YTKA = igrok('утёнок джек 228.png',50,50, 100,100)                      
+                    
 class Wall(sprite.Sprite):
     def __init__(self, x,y,shir,vis):
         super().__init__()
@@ -50,24 +75,11 @@ while game:
     for i in event.get():
         if i .type == QUIT:
             game  = False
-    if i.type == KEYDOWN:
-            if i.key == K_ESCAPE:
-                game = False
+        if i.type == KEYDOWN:
+                if i.key == K_ESCAPE:
+                    game = False
     okno.blit(fon, (0,0))
+    YTKA.control()
                       
     display.update()
-    clock.tick(60)   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    clock.tick(60)  
