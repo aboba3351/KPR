@@ -1,1 +1,57 @@
+from pygame import*
+
+game=True
+clock= time.Clock()
+
+okno = display.set_mode(700,600)
+
+fon = transform.scale(image.load('background.jpg'), (750, 750))
+
+class GameSprite(sprite.Sprite):
+    def __init__(self, pikt, x,y):
+        super().__init__()
+        self.image = transform.scale(image.load(pikt), (50, 50))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    def ris(self):
+        okno.blit(self.image, (self.rect.x,self.rect.y))
+
+class igrok(GameSprite):
+    def  control(self):
+        self.ris()
+        self.lastx = self.rect.x
+        self.lasty = self.rect.y
+        kn = key.get_pressed()
+        if kn[K_LEFT]:
+            self.rect.x -= 5
+        if kn[K_RIGHT]:
+            self.rect.x += 5
+        if kn[K_DOWN]:
+            self.rect.y += 5
+        if kn[K_UP]:
+            self.rect.y -= 5
+
+boba = igrok('free-png.ru-61.png', 50,50)
+
+while game:
+    for i in event.get():
+        if i .type == QUIT:
+            game  = False
+
+    display.update()
+    clock.tick(60)   
+
+
+
+
+
+
+
+
+
+
+
+
+
 
