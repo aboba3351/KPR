@@ -1,11 +1,22 @@
 from pygame import*
-
+from random import randint
 game=True
 clock= time.Clock()
 
 okno = display.set_mode((700,600), FULLSCREEN)
 
 fon = transform.scale(image.load('градус 228.png'), (750, 750))
+
+class GameSprite2(sprite.Sprite):
+    def __init__(self, pikt, x,y,w,h):
+        super().__init__()
+        self.image = transform.scale(image.load(pikt), (w,h))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.direct="verh"
+    def ris(self):
+            okno.blit(self.image, (self.rect.x,self.rect.y))
 
 class GameSprite(sprite.Sprite):
     def __init__(self, pikt, x,y,w,h):
@@ -56,7 +67,7 @@ class igrok(GameSprite):
             #igrok.image = transform.scale(image.load('утёнок джек 228.png'),(100,100)) 
             self.rect.y -= 5
             self.direct = "verh"
-YTKA = igrok('утёнок джек 228.png',50,50, 100,100)                      
+YTKA = igrok('утёнок джек 228.png',500,500, 100,100)                      
                     
 class Wall(sprite.Sprite):
     def __init__(self, x,y,shir,vis):
@@ -71,7 +82,9 @@ class Wall(sprite.Sprite):
 Wallgroup = [
 ]
 
-class Monster(GameSprite):
+x1 = 0
+x2 = 0
+class chel(GameSprite2):
     def patrul_h(self,x1,x2):
         self.ris()
         if self.rect.x < x1:
@@ -82,7 +95,86 @@ class Monster(GameSprite):
             self.rect.x +=3
         else:
             self.rect.x -=3
-m1 = Monster('monsty.jpg', 9, 270)
+
+
+class Wall(sprite.Sprite):
+    def __init__(self, x,y,shir,vis):
+        super().__init__()
+        self.image = Surface((shir,vis))
+        self.image.fill((255,0,255))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    def ris(self):
+        okno.blit(self.image, (self.rect.x,self.rect.y))
+    
+   
+   
+                    
+
+tp = Wall(5, 5, 100, 10)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NAKARTE=[
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50),
+chel('чел.png', randint(0,50*20), randint(0,50*20), 50, 50)
+]
+
+
+
 
 while game:
     for i in event.get():
@@ -93,7 +185,14 @@ while game:
                     game = False
     okno.blit(fon, (0,0))
     YTKA.control()
-                      
+    for i in NAKARTE:
+        i.ris()
+        if sprite.collide_rect(YTKA, i):
+                    NAKARTE.remove(i)
+    
+    tp.ris()
+    if sprite.collide_rect(YTKA, tp):
+        YTKA.rect.x =500
+        YTKA.rect.y =500
     display.update()
     clock.tick(60)  
-
