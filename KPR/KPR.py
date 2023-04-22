@@ -71,6 +71,19 @@ class Wall(sprite.Sprite):
 Wallgroup = [
 ]
 
+class Monster(GameSprite):
+    def patrul_h(self,x1,x2):
+        self.ris()
+        if self.rect.x < x1:
+            self.napr = 'pravo'
+        if self.rect.x > x2:
+            self.napr = 'levo'
+        if self.napr == 'pravo':
+            self.rect.x +=3
+        else:
+            self.rect.x -=3
+m1 = Monster('monsty.jpg', 9, 270)
+
 while game:
     for i in event.get():
         if i .type == QUIT:
